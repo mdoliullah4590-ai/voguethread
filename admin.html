@@ -858,10 +858,9 @@
     btn.innerHTML   = '<i class="fa fa-spinner fa-spin"></i> Saving...';
 
     try {
-      let imageURL = editingId ? (allProducts.find(p => p.id === editingId)?.imageURL || null) : null;
-      if (selectedFile) {
-        adminToast("Uploading image...");
-        imageURL = await uploadImage(selectedFile);
+      let imageURL = document.getElementById("pImageURL").value.trim() || null;
+      if (!imageURL && editingId) {
+        imageURL = allProducts.find(p => p.id === editingId)?.imageURL || null;
       }
 
       const oldPrice = parseFloat(document.getElementById("pOldPrice").value);
