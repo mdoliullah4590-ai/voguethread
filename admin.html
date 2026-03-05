@@ -403,17 +403,16 @@
 
         <!-- Image Upload -->
         <div class="form-group">
-          <label>Product Image</label>
-          <div class="upload-area" id="uploadArea">
-            <input type="file" id="imageInput" accept="image/*" onchange="handleImageSelect(event)"/>
-            <i class="fa fa-cloud-upload-alt" id="uploadIcon"></i>
-            <p id="uploadText">Click or drag image here</p>
-            <span>JPG, PNG, WebP — max 5MB</span>
-            <img class="image-preview" id="imagePreview" alt="Preview"/>
-          </div>
-          <div class="upload-progress" id="uploadProgress">
-            <div class="upload-progress-bar" id="uploadProgressBar"></div>
-          </div>
+  <label>Image URL</label>
+  <input type="text" id="pImageURL" 
+    placeholder="https://i.ibb.co/xxxxx/image.jpg" 
+    oninput="previewImageURL(this.value)"/>
+  <p style="font-size:0.78rem;color:#7a7a7a;margin-top:6px;">
+    👉 imgbb.com এ ছবি upload → Direct links copy → এখানে paste করো
+  </p>
+  <img id="imagePreview" alt="Preview" 
+    style="display:none;width:100%;max-height:200px;
+    object-fit:cover;border-radius:6px;margin-top:10px;"/>
         </div>
 
         <div class="form-row">
