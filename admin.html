@@ -11,7 +11,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,13 +47,14 @@
     .login-box p { color: var(--gray); font-size: 0.9rem; margin-bottom: 32px; }
     .form-group { margin-bottom: 18px; }
     .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 8px; }
-    .form-group input {
+    .form-group input, .form-group select, .form-group textarea {
       width: 100%; padding: 13px 16px; font-family: var(--font-body);
       font-size: 0.95rem; border: 1.5px solid var(--light);
       background: var(--white); border-radius: var(--radius); outline: none;
       transition: border-color 0.3s;
     }
-    .form-group input:focus { border-color: var(--rust); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--rust); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
     .btn-login {
       width: 100%; padding: 14px; background: var(--black); color: var(--white);
       border: none; border-radius: var(--radius); font-family: var(--font-body);
@@ -69,8 +69,8 @@
 
     /* ===== ADMIN LAYOUT ===== */
     .admin-layout { display: flex; min-height: 100vh; }
-    #loginPage   { display: flex; }
-    #adminPanel  { display: none; width: 100%; }
+    #loginPage  { display: flex; }
+    #adminPanel { display: none; width: 100%; }
 
     /* SIDEBAR */
     .sidebar {
@@ -188,32 +188,13 @@
     .modal-body { padding: 28px; }
     .modal-footer { padding: 20px 28px; border-top: 1px solid var(--light); display: flex; gap: 12px; justify-content: flex-end; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; margin-bottom: 7px; color: #444; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 11px 14px; font-family: var(--font-body); font-size: 0.9rem;
-      border: 1.5px solid var(--light); background: #faf9f7;
-      border-radius: var(--radius); outline: none; transition: border-color 0.2s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--rust); background: white; }
-    .form-group textarea { resize: vertical; min-height: 90px; }
 
-    /* Image Upload Area */
-    .upload-area {
-      border: 2px dashed var(--light); border-radius: var(--radius);
-      padding: 32px 20px; text-align: center; cursor: pointer;
-      transition: all 0.2s; background: #faf9f7; position: relative;
-    }
-    .upload-area:hover, .upload-area.dragging { border-color: var(--rust); background: #fff8f5; }
-    .upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-    .upload-area i { font-size: 2rem; color: var(--light); margin-bottom: 10px; display: block; }
-    .upload-area p { font-size: 0.85rem; color: var(--gray); }
-    .upload-area span { font-size: 0.75rem; color: var(--rust); font-weight: 500; }
-    .image-preview { width: 100%; height: 180px; object-fit: cover; border-radius: var(--radius); margin-top: 12px; display: none; }
-    .upload-progress { height: 4px; background: var(--light); border-radius: 2px; margin-top: 12px; overflow: hidden; display: none; }
-    .upload-progress-bar { height: 100%; background: var(--rust); border-radius: 2px; width: 0; transition: width 0.3s; }
+    /* Image URL */
+    .img-url-hint { font-size: 0.78rem; color: var(--gray); margin-top: 7px; }
+    .img-url-hint a { color: var(--rust); font-weight: 500; }
+    .img-preview-box { display: none; width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--radius); margin-top: 10px; border: 1.5px solid var(--light); }
 
-    /* Sizes & Colors chips */
+    /* Chips */
     .chips-input { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border: 1.5px solid var(--light); border-radius: var(--radius); background: #faf9f7; min-height: 48px; cursor: text; }
     .chips-input:focus-within { border-color: var(--rust); background: white; }
     .chip { background: var(--black); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; display: flex; align-items: center; gap: 6px; }
@@ -233,7 +214,7 @@
     .toast.success { background: var(--green); }
     .toast.error   { background: var(--red); }
 
-    /* Loading spinner */
+    /* Loading */
     .loading { display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--gray); flex-direction: column; gap: 12px; font-size: 0.9rem; }
     .fa-spin { animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -251,6 +232,7 @@
       .sidebar { width: 200px; }
       .admin-main { margin-left: 200px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -311,8 +293,6 @@
 
     <!-- MAIN -->
     <main class="admin-main">
-
-      <!-- TOP BAR -->
       <div class="admin-topbar">
         <div>
           <h1 id="pageTitle">Dashboard</h1>
@@ -325,7 +305,7 @@
 
       <div class="admin-content">
 
-        <!-- ===== DASHBOARD SECTION ===== -->
+        <!-- DASHBOARD -->
         <div id="section-dashboard">
           <div class="stats-grid">
             <div class="stat-card">
@@ -349,7 +329,6 @@
               <p>Featured</p>
             </div>
           </div>
-
           <div class="card">
             <div class="card-header">
               <h3>Recent Products</h3>
@@ -363,7 +342,7 @@
           </div>
         </div>
 
-        <!-- ===== PRODUCTS SECTION ===== -->
+        <!-- PRODUCTS -->
         <div id="section-products" style="display:none;">
           <div class="card">
             <div class="card-header">
@@ -376,7 +355,7 @@
           </div>
         </div>
 
-        <!-- ===== ORDERS SECTION ===== -->
+        <!-- ORDERS -->
         <div id="section-orders" style="display:none;">
           <div class="card">
             <div class="card-header"><h3>Orders</h3></div>
@@ -392,567 +371,4 @@
     </main>
   </div>
 
-  <!-- ===== ADD / EDIT PRODUCT MODAL ===== -->
-  <div class="modal-overlay" id="productModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2 id="modalTitle">Add New Product</h2>
-        <button class="modal-close" onclick="closeModal()"><i class="fa fa-times"></i></button>
-      </div>
-      <div class="modal-body">
-
-        <!-- Image Upload -->
-        <div class="form-group">
-  <label>Image URL</label>
-  <input type="text" id="pImageURL" 
-    placeholder="https://i.ibb.co/xxxxx/image.jpg" 
-    oninput="previewImageURL(this.value)"/>
-  <p style="font-size:0.78rem;color:#7a7a7a;margin-top:6px;">
-    👉 imgbb.com এ ছবি upload → Direct links copy → এখানে paste করো
-  </p>
-  <img id="imagePreview" alt="Preview" 
-    style="display:none;width:100%;max-height:200px;
-    object-fit:cover;border-radius:6px;margin-top:10px;"/>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Product Name *</label>
-            <input type="text" id="pName" placeholder="e.g. Classic Linen Blazer"/>
-          </div>
-          <div class="form-group">
-            <label>Category *</label>
-            <select id="pCategory">
-              <option value="women">Women</option>
-              <option value="men">Men</option>
-              <option value="accessories">Accessories</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Price (USD) *</label>
-            <input type="number" id="pPrice" placeholder="99.99" min="0" step="0.01"/>
-          </div>
-          <div class="form-group">
-            <label>Sale Price (optional)</label>
-            <input type="number" id="pOldPrice" placeholder="Original price if on sale" min="0" step="0.01"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Description</label>
-          <textarea id="pDescription" placeholder="Describe the product — fabric, fit, care instructions..."></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Badge</label>
-            <select id="pBadge">
-              <option value="">None</option>
-              <option value="New">New</option>
-              <option value="Sale">Sale</option>
-              <option value="Bestseller">Bestseller</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select id="pInStock">
-              <option value="true">In Stock</option>
-              <option value="false">Out of Stock</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Sizes -->
-        <div class="form-group">
-          <label>Sizes <span style="font-weight:400;text-transform:none;color:var(--gray);">(type & press Enter)</span></label>
-          <div class="chips-input" id="sizesContainer" onclick="document.getElementById('sizeInput').focus()">
-            <input type="text" id="sizeInput" placeholder="e.g. S, M, L..." onkeydown="addChip(event,'sizes')"/>
-          </div>
-        </div>
-
-        <!-- Colors -->
-        <div class="form-group">
-          <label>Colors <span style="font-weight:400;text-transform:none;color:var(--gray);">(type hex or name & press Enter)</span></label>
-          <div class="chips-input" id="colorsContainer" onclick="document.getElementById('colorInput').focus()">
-            <input type="text" id="colorInput" placeholder="e.g. #1a1a1a, red..." onkeydown="addChip(event,'colors')"/>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;">
-            <input type="checkbox" id="pFeatured" style="width:16px;height:16px;accent-color:var(--rust);"/>
-            Show on Homepage (Featured)
-          </label>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
-        <button class="btn-primary" id="saveProductBtn" onclick="saveProduct()">
-          <i class="fa fa-save"></i> Save Product
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== CONFIRM DELETE DIALOG ===== -->
-  <div class="confirm-overlay" id="confirmOverlay">
-    <div class="confirm-box">
-      <i class="fa fa-trash-alt"></i>
-      <h3>Delete Product?</h3>
-      <p>This will permanently delete the product and its image. This action cannot be undone.</p>
-      <div class="confirm-btns">
-        <button class="btn-secondary" onclick="closeConfirm()">Cancel</button>
-        <button class="btn-primary" id="confirmDeleteBtn" style="background:var(--red);">Delete</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div class="toast" id="adminToast"></div>
-
-  <!-- Firebase Config -->
-  <script src="js/firebase-config.js"></script>
-
-  <script>
-  // =============================================
-  //  ADMIN PANEL JAVASCRIPT
-  // =============================================
-
-  let allProducts    = [];
-  let editingId      = null;
-  let chipData       = { sizes: [], colors: [] };
-  let selectedFile   = null;
-  let deleteTargetId = null;
-
-  // --- AUTH ---
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById("loginPage").style.display  = "none";
-      document.getElementById("adminPanel").style.display = "flex";
-      document.getElementById("adminEmail").textContent   = user.email;
-      loadAllProducts();
-    } else {
-      document.getElementById("loginPage").style.display  = "flex";
-      document.getElementById("adminPanel").style.display = "none";
-    }
-  });
-
-  async function doLogin() {
-    const email = document.getElementById("loginEmail").value.trim();
-    const pass  = document.getElementById("loginPassword").value;
-    const btn   = document.getElementById("loginBtn");
-    const err   = document.getElementById("loginError");
-
-    if (!email || !pass) { showLoginError("Please enter email and password."); return; }
-
-    btn.textContent = "Signing in...";
-    btn.disabled    = true;
-    err.style.display = "none";
-
-    try {
-      await auth.signInWithEmailAndPassword(email, pass);
-    } catch (e) {
-      showLoginError("Invalid email or password. Please try again.");
-      btn.textContent = "Sign In";
-      btn.disabled    = false;
-    }
-  }
-
-  function doLogout() {
-    auth.signOut();
-  }
-
-  function showLoginError(msg) {
-    const err = document.getElementById("loginError");
-    err.textContent   = msg;
-    err.style.display = "block";
-  }
-
-  // --- SECTIONS ---
-  function showSection(name) {
-    ["dashboard","products","orders"].forEach(s => {
-      document.getElementById(`section-${s}`).style.display = s === name ? "block" : "none";
-      document.getElementById(`nav-${s}`)?.classList.toggle("active", s === name);
-    });
-
-    document.getElementById("pageTitle").textContent = {
-      dashboard: "Dashboard",
-      products:  "Products",
-      orders:    "Orders"
-    }[name] || name;
-
-    document.getElementById("pageSubtitle").textContent = {
-      dashboard: "Welcome back! Here's your store overview.",
-      products:  "Manage your product catalog.",
-      orders:    "View and manage customer orders."
-    }[name] || "";
-
-    document.getElementById("addProductBtn").style.display = name === "products" ? "flex" : "none";
-    document.getElementById("nav-view").classList.remove("active");
-
-    if (name === "products") renderProductTable(allProducts);
-  }
-
-  // --- LOAD PRODUCTS ---
-  async function loadAllProducts() {
-    try {
-      const snap = await db.collection("products").orderBy("createdAt","desc").get();
-      allProducts = [];
-      snap.forEach(doc => allProducts.push({ id: doc.id, ...doc.data() }));
-      updateStats();
-      renderDashboard();
-    } catch (e) {
-      adminToast("Failed to load products: " + e.message, "error");
-    }
-  }
-
-  function updateStats() {
-    document.getElementById("stat-products").textContent = allProducts.length;
-    document.getElementById("stat-instock").textContent  = allProducts.filter(p => p.inStock !== false).length;
-    document.getElementById("stat-featured").textContent = allProducts.filter(p => p.featured).length;
-  }
-
-  function renderDashboard() {
-    const container = document.getElementById("dashboardProductList");
-    if (allProducts.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <i class="fa fa-shirt"></i>
-          <p>No products yet. Add your first product!</p>
-          <button class="btn-add" onclick="showSection('products');openAddModal();" style="margin-top:16px;display:inline-flex;">
-            <i class="fa fa-plus"></i> Add Product
-          </button>
-        </div>`;
-      return;
-    }
-    container.innerHTML = buildTableHTML(allProducts.slice(0, 5));
-  }
-
-  function renderProductTable(products) {
-    const container = document.getElementById("productTableContainer");
-    if (products.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <i class="fa fa-shirt"></i>
-          <p>No products found.</p>
-        </div>`;
-      return;
-    }
-    container.innerHTML = buildTableHTML(products);
-  }
-
-  function buildTableHTML(products) {
-    return `
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Featured</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${products.map(p => `
-            <tr>
-              <td>
-                <div class="product-name-cell">
-                  <div class="product-thumb">
-                    ${p.imageURL ? `<img src="${p.imageURL}" alt="${p.name}"/>` : `<i class="fa fa-shirt"></i>`}
-                  </div>
-                  <div>
-                    <strong style="font-size:0.9rem;">${p.name}</strong>
-                    ${p.badge ? `<br/><span class="badge badge-sale" style="margin-top:3px;">${p.badge}</span>` : ""}
-                  </div>
-                </div>
-              </td>
-              <td><span class="badge badge-${p.category}">${p.category}</span></td>
-              <td>
-                <strong>$${parseFloat(p.price).toFixed(2)}</strong>
-                ${p.oldPrice ? `<br/><span style="font-size:0.8rem;color:var(--gray);text-decoration:line-through;">$${parseFloat(p.oldPrice).toFixed(2)}</span>` : ""}
-              </td>
-              <td>
-                <span class="badge ${p.inStock !== false ? 'badge-in' : 'badge-out'}">
-                  ${p.inStock !== false ? "In Stock" : "Out of Stock"}
-                </span>
-              </td>
-              <td style="text-align:center;">
-                ${p.featured ? '<i class="fa fa-star" style="color:#f5a623;"></i>' : '<i class="fa fa-star" style="color:var(--light);"></i>'}
-              </td>
-              <td>
-                <button class="action-btn btn-edit" onclick="openEditModal('${p.id}')">
-                  <i class="fa fa-edit"></i> Edit
-                </button>
-                <button class="action-btn btn-delete" onclick="confirmDelete('${p.id}')">
-                  <i class="fa fa-trash"></i> Delete
-                </button>
-              </td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>`;
-  }
-
-  function filterProducts() {
-    const q = document.getElementById("productSearch").value.toLowerCase();
-    const filtered = allProducts.filter(p =>
-      p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
-    );
-    renderProductTable(filtered);
-  }
-
-  // --- MODAL ---
-  function openAddModal() {
-    editingId    = null;
-    selectedFile = null;
-    chipData     = { sizes: [], colors: [] };
-    document.getElementById("modalTitle").textContent = "Add New Product";
-    document.getElementById("saveProductBtn").innerHTML = '<i class="fa fa-save"></i> Save Product';
-    clearForm();
-    document.getElementById("productModal").classList.add("open");
-  }
-
-  function openEditModal(id) {
-    const product = allProducts.find(p => p.id === id);
-    if (!product) return;
-
-    editingId    = id;
-    selectedFile = null;
-    chipData     = {
-      sizes:  [...(product.sizes  || [])],
-      colors: [...(product.colors || [])]
-    };
-
-    document.getElementById("modalTitle").textContent = "Edit Product";
-    document.getElementById("saveProductBtn").innerHTML = '<i class="fa fa-save"></i> Update Product';
-
-    document.getElementById("pName").value        = product.name        || "";
-    document.getElementById("pCategory").value    = product.category    || "women";
-    document.getElementById("pPrice").value       = product.price       || "";
-    document.getElementById("pOldPrice").value    = product.oldPrice    || "";
-    document.getElementById("pDescription").value = product.description || "";
-    document.getElementById("pBadge").value       = product.badge       || "";
-    document.getElementById("pInStock").value     = product.inStock !== false ? "true" : "false";
-    document.getElementById("pFeatured").checked  = product.featured    || false;
-
-    // Image preview
-    const preview = document.getElementById("imagePreview");
-    if (product.imageURL) {
-      preview.src          = product.imageURL;
-      preview.style.display = "block";
-      document.getElementById("uploadText").textContent = "Click to change image";
-      document.getElementById("uploadIcon").style.display = "none";
-    } else {
-      preview.style.display = "none";
-      document.getElementById("uploadText").textContent = "Click or drag image here";
-      document.getElementById("uploadIcon").style.display = "block";
-    }
-
-    renderChips("sizes");
-    renderChips("colors");
-    document.getElementById("productModal").classList.add("open");
-  }
-
-  function closeModal() {
-    document.getElementById("productModal").classList.remove("open");
-    editingId = null;
-  }
-
-  function clearForm() {
-    ["pName","pDescription","pPrice","pOldPrice"].forEach(id => document.getElementById(id).value = "");
-    document.getElementById("pCategory").value  = "women";
-    document.getElementById("pBadge").value     = "";
-    document.getElementById("pInStock").value   = "true";
-    document.getElementById("pFeatured").checked = false;
-    document.getElementById("sizesContainer").innerHTML  = `<input type="text" id="sizeInput"  placeholder="e.g. S, M, L..."   onkeydown="addChip(event,'sizes')"/>`;
-    document.getElementById("colorsContainer").innerHTML = `<input type="text" id="colorInput" placeholder="e.g. #1a1a1a, red..." onkeydown="addChip(event,'colors')"/>`;
-    document.getElementById("imagePreview").style.display = "none";
-    document.getElementById("uploadText").textContent   = "Click or drag image here";
-    document.getElementById("uploadIcon").style.display = "block";
-  }
-
-  // --- CHIPS (Sizes & Colors) ---
-  function addChip(event, type) {
-    if (event.key !== "Enter" && event.key !== ",") return;
-    event.preventDefault();
-    const inputId = type === "sizes" ? "sizeInput" : "colorInput";
-    const input   = document.getElementById(inputId);
-    const value   = input.value.trim().replace(/,/g,"");
-    if (!value || chipData[type].includes(value)) { input.value = ""; return; }
-    chipData[type].push(value);
-    input.value = "";
-    renderChips(type);
-  }
-
-  function removeChip(type, value) {
-    chipData[type] = chipData[type].filter(v => v !== value);
-    renderChips(type);
-  }
-
-  function renderChips(type) {
-    const containerId = type === "sizes" ? "sizesContainer" : "colorsContainer";
-    const inputId     = type === "sizes" ? "sizeInput"      : "colorInput";
-    const placeholder = type === "sizes" ? "e.g. S, M, L..." : "e.g. #1a1a1a, red...";
-    const container   = document.getElementById(containerId);
-    container.innerHTML =
-      chipData[type].map(v => `
-        <div class="chip">
-          ${type === "colors" ? `<span style="width:12px;height:12px;border-radius:50%;background:${v};border:1px solid rgba(255,255,255,0.3);"></span>` : ""}
-          ${v}
-          <button onclick="removeChip('${type}','${v}')" type="button">×</button>
-        </div>`
-      ).join("") +
-      `<input type="text" id="${inputId}" placeholder="${placeholder}" onkeydown="addChip(event,'${type}')"/>`;
-  }
-
-  // --- IMAGE UPLOAD ---
-  function handleImageSelect(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { adminToast("Image must be under 5MB", "error"); return; }
-
-    selectedFile = file;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const preview = document.getElementById("imagePreview");
-      preview.src   = e.target.result;
-      preview.style.display = "block";
-      document.getElementById("uploadText").textContent   = file.name;
-      document.getElementById("uploadIcon").style.display = "none";
-    };
-    reader.readAsDataURL(file);
-  }
-
-  async function uploadImage(file) {
-    return new Promise((resolve, reject) => {
-      const ref      = storage.ref(`products/${Date.now()}_${file.name}`);
-      const task     = ref.put(file);
-      const bar      = document.getElementById("uploadProgressBar");
-      const progress = document.getElementById("uploadProgress");
-      progress.style.display = "block";
-
-      task.on("state_changed",
-        snap => { bar.style.width = (snap.bytesTransferred / snap.totalBytes * 100) + "%"; },
-        reject,
-        async () => { resolve(await ref.getDownloadURL()); }
-      );
-    });
-  }
-
-  // --- SAVE PRODUCT ---
-  async function saveProduct() {
-    const name  = document.getElementById("pName").value.trim();
-    const price = parseFloat(document.getElementById("pPrice").value);
-
-    if (!name)     { adminToast("Please enter a product name.", "error"); return; }
-    if (!price || price <= 0) { adminToast("Please enter a valid price.", "error"); return; }
-
-    const btn = document.getElementById("saveProductBtn");
-    btn.disabled    = true;
-    btn.innerHTML   = '<i class="fa fa-spinner fa-spin"></i> Saving...';
-
-    try {
-      let imageURL = document.getElementById("pImageURL").value.trim() || null;
-      if (!imageURL && editingId) {
-        imageURL = allProducts.find(p => p.id === editingId)?.imageURL || null;
-      }
-
-      const oldPrice = parseFloat(document.getElementById("pOldPrice").value);
-      const data = {
-        name:        name,
-        category:    document.getElementById("pCategory").value,
-        price:       price,
-        oldPrice:    isNaN(oldPrice) || !oldPrice ? null : oldPrice,
-        description: document.getElementById("pDescription").value.trim(),
-        badge:       document.getElementById("pBadge").value || null,
-        inStock:     document.getElementById("pInStock").value === "true",
-        featured:    document.getElementById("pFeatured").checked,
-        sizes:       chipData.sizes,
-        colors:      chipData.colors,
-        imageURL:    imageURL,
-        updatedAt:   firebase.firestore.FieldValue.serverTimestamp()
-      };
-
-      if (editingId) {
-        await db.collection("products").doc(editingId).update(data);
-        adminToast("Product updated successfully!", "success");
-      } else {
-        data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-        data.rating    = 5;
-        data.reviews   = 0;
-        await db.collection("products").add(data);
-        adminToast("Product added successfully!", "success");
-      }
-
-      closeModal();
-      document.getElementById("uploadProgress").style.display = "none";
-      document.getElementById("uploadProgressBar").style.width = "0";
-      await loadAllProducts();
-      if (document.getElementById("section-products").style.display !== "none") {
-        renderProductTable(allProducts);
-      }
-
-    } catch (e) {
-      adminToast("Error: " + e.message, "error");
-    } finally {
-      btn.disabled  = false;
-      btn.innerHTML = '<i class="fa fa-save"></i> ' + (editingId ? "Update Product" : "Save Product");
-    }
-  }
-
-  // --- DELETE ---
-  function confirmDelete(id) {
-    deleteTargetId = id;
-    document.getElementById("confirmOverlay").classList.add("open");
-    document.getElementById("confirmDeleteBtn").onclick = () => doDelete(id);
-  }
-
-  function closeConfirm() {
-    document.getElementById("confirmOverlay").classList.remove("open");
-    deleteTargetId = null;
-  }
-
-  async function doDelete(id) {
-    closeConfirm();
-    try {
-      // Delete image from storage if exists
-      const product = allProducts.find(p => p.id === id);
-      if (product?.imageURL) {
-        try {
-          await storage.refFromURL(product.imageURL).delete();
-        } catch(e) { /* image already deleted or doesn't exist */ }
-      }
-      await db.collection("products").doc(id).delete();
-      adminToast("Product deleted.", "success");
-      await loadAllProducts();
-      renderProductTable(allProducts);
-    } catch (e) {
-      adminToast("Error deleting: " + e.message, "error");
-    }
-  }
-function previewImageURL(url) {
-    const preview = document.getElementById("imagePreview");
-    if (url && url.startsWith("http")) {
-      preview.src = url;
-      preview.style.display = "block";
-      preview.onerror = () => { preview.style.display = "none"; };
-    } else {
-      preview.style.display = "none";
-    }
-}
-  // --- TOAST ---
-  function adminToast(msg, type = "") {
-    const t = document.getElementById("adminToast");
-    t.textContent  = msg;
-    t.className    = "toast show " + type;
-    setTimeout(() => t.className = "toast", 3000);
-  }
-  </script>
-</body>
-</html>
+  <!-- ===== ADD / EDIT PRODUCT MODAL 
