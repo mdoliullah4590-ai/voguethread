@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VOGUE THREAD — Modern Clothing</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="header" id="header">
+    <div class="header__logo">
+      <a href="index.html">VOGUE<span>THREAD</span></a>
+    </div>
+    <nav class="header__nav" id="navMenu">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header__icons">
+      <a href="#" onclick="toggleSearch()"><i class="fa fa-search"></i></a>
+      <a href="#" onclick="toggleCart()">
+        <i class="fa fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== SEARCH BAR ===== -->
+  <div class="search-bar" id="searchBar">
+    <input type="text" placeholder="Search for products..." id="searchInput" />
+    <button onclick="toggleSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero">
+    <div class="hero__content">
+      <p class="hero__tag">New Collection 2025</p>
+      <h1 class="hero__title">Dress Your<br/><em>True Self</em></h1>
+      <p class="hero__sub">Curated fashion for the bold, the minimal, the expressive.</p>
+      <div class="hero__buttons">
+        <a href="shop.html" class="btn btn--primary">Shop Now</a>
+        <a href="about.html" class="btn btn--outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero__image">
+      <div class="hero__img-placeholder">
+        <i class="fa fa-shirt"></i>
+        <p>Hero Fashion Image</p>
+      </div>
+      <div class="hero__badge">New<br/>Arrivals</div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE STRIP ===== -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>FREE SHIPPING OVER $75</span><span>★</span>
+      <span>NEW ARRIVALS EVERY WEEK</span><span>★</span>
+      <span>EASY 30-DAY RETURNS</span><span>★</span>
+      <span>SUSTAINABLE FASHION</span><span>★</span>
+      <span>FREE SHIPPING OVER $75</span><span>★</span>
+      <span>NEW ARRIVALS EVERY WEEK</span><span>★</span>
+      <span>EASY 30-DAY RETURNS</span><span>★</span>
+      <span>SUSTAINABLE FASHION</span><span>★</span>
+    </div>
+  </div>
+
+  <!-- ===== CATEGORIES ===== -->
+  <section class="categories section">
+    <div class="container">
+      <h2 class="section-title">Shop by Category</h2>
+      <div class="categories__grid">
+        <a href="shop.html?cat=women" class="category-card">
+          <div class="category-card__img cat--women">
+            <i class="fa fa-person-dress"></i>
+          </div>
+          <h3>Women</h3>
+          <span>124 Items</span>
+        </a>
+        <a href="shop.html?cat=men" class="category-card">
+          <div class="category-card__img cat--men">
+            <i class="fa fa-person"></i>
+          </div>
+          <h3>Men</h3>
+          <span>98 Items</span>
+        </a>
+        <a href="shop.html?cat=accessories" class="category-card">
+          <div class="category-card__img cat--accessories">
+            <i class="fa fa-bag-shopping"></i>
+          </div>
+          <h3>Accessories</h3>
+          <span>56 Items</span>
+        </a>
+        <a href="shop.html?cat=sale" class="category-card">
+          <div class="category-card__img cat--sale">
+            <i class="fa fa-tag"></i>
+          </div>
+          <h3>Sale</h3>
+          <span>40% Off</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PRODUCTS ===== -->
+  <section class="featured section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Products</h2>
+        <a href="shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="products__grid" id="featuredProducts">
+        <!-- Products injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BANNER ===== -->
+  <section class="promo-banner">
+    <div class="promo-banner__content">
+      <p class="promo-banner__tag">Limited Time</p>
+      <h2>Summer Sale<br/><em>Up to 40% Off</em></h2>
+      <a href="shop.html?cat=sale" class="btn btn--white">Shop the Sale</a>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials section">
+    <div class="container">
+      <h2 class="section-title">What Customers Say</h2>
+      <div class="testimonials__grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Absolutely love the quality! The fabric is so soft and the fit is perfect. Will definitely be ordering again."</p>
+          <strong>— Sarah M.</strong>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Fast shipping, beautiful packaging, and the clothes look even better in person. 10/10 experience!"</p>
+          <strong>— James T.</strong>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★☆</div>
+          <p>"Great selection of styles. The customer service team was super helpful when I needed to exchange a size."</p>
+          <strong>— Priya K.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>Join the Inner Circle</h2>
+      <p>Get early access to new collections, exclusive discounts, and style inspiration.</p>
+      <form class="newsletter__form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+      <p class="newsletter__note">No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h3>VOGUE<span>THREAD</span></h3>
+          <p>Modern clothing for the modern you. Curated with purpose, crafted with care.</p>
+          <div class="footer__social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <a href="shop.html">New Arrivals</a>
+          <a href="shop.html?cat=women">Women</a>
+          <a href="shop.html?cat=men">Men</a>
+          <a href="shop.html?cat=accessories">Accessories</a>
+          <a href="shop.html?cat=sale">Sale</a>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <a href="contact.html">Contact Us</a>
+          <a href="faq.html">FAQ</a>
+          <a href="shipping.html">Shipping Info</a>
+          <a href="returns.html">Returns</a>
+          <a href="size-guide.html">Size Guide</a>
+        </div>
+        <div class="footer__links">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+          <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 VogueThread. All rights reserved.</p>
+        <div class="footer__payments">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-cc-stripe"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== CART SIDEBAR ===== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag (<span id="cartItemCount">0</span>)</h3>
+      <button onclick="toggleCart()"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__items" id="cartItems">
+      <div class="cart-empty">
+        <i class="fa fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="shop.html" class="btn btn--primary" onclick="toggleCart()">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <a href="checkout.html" class="btn btn--primary btn--full">Checkout</a>
+      <button onclick="toggleCart()" class="btn btn--outline btn--full">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST NOTIFICATION ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/firebase-products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

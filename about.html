@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — VogueThread</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__logo"><a href="index.html">VOGUE<span>THREAD</span></a></div>
+    <nav class="header__nav" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header__icons">
+      <a href="#" onclick="toggleSearch()"><i class="fa fa-search"></i></a>
+      <a href="#" onclick="toggleCart()"><i class="fa fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="search-bar" id="searchBar">
+    <input type="text" placeholder="Search for products..." id="searchInput"/>
+    <button onclick="toggleSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero">
+    <div class="about-hero__text">
+      <h1>Fashion with<br/><em>Purpose</em></h1>
+      <p>We started VogueThread with one belief: that clothing should make you feel like the best version of yourself — every single day.</p>
+      <p style="margin-top:16px;">Founded in 2020, we've built a brand on sustainable materials, ethical manufacturing, and timeless design that transcends seasons.</p>
+    </div>
+    <div class="about-hero__img">
+      <i class="fa fa-shirt"></i>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align:center;">What We Stand For</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-card__icon"><i class="fa fa-leaf"></i></div>
+          <h3>Sustainability</h3>
+          <p>Every piece is made from sustainably sourced or recycled materials. We're committed to reducing our carbon footprint with every collection.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon"><i class="fa fa-heart"></i></div>
+          <h3>Ethical Production</h3>
+          <p>Our garments are crafted in certified factories that pay fair wages and provide safe working conditions. People before profit — always.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon"><i class="fa fa-star"></i></div>
+          <h3>Timeless Quality</h3>
+          <p>We design pieces meant to last years, not seasons. No fast fashion. Just beautifully made clothes you'll reach for again and again.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div style="background:var(--black); color:var(--white); padding:70px 0;">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;">
+        <div>
+          <p style="font-family:var(--font-display); font-size:3rem; color:var(--rust);">50K+</p>
+          <p style="font-size:0.85rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.1em;">Happy Customers</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-display); font-size:3rem; color:var(--rust);">200+</p>
+          <p style="font-size:0.85rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.1em;">Unique Styles</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-display); font-size:3rem; color:var(--rust);">30+</p>
+          <p style="font-size:0.85rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.1em;">Countries Shipped</p>
+        </div>
+        <div>
+          <p style="font-family:var(--font-display); font-size:3rem; color:var(--rust);">100%</p>
+          <p style="font-size:0.85rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.1em;">Sustainably Sourced</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title" style="text-align:center;">Meet the Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-card__avatar"><i class="fa fa-user"></i></div>
+          <h4>Alex Rivera</h4>
+          <p>Founder & Creative Director</p>
+        </div>
+        <div class="team-card">
+          <div class="team-card__avatar"><i class="fa fa-user"></i></div>
+          <h4>Maya Patel</h4>
+          <p>Head of Design</p>
+        </div>
+        <div class="team-card">
+          <div class="team-card__avatar"><i class="fa fa-user"></i></div>
+          <h4>Jordan Kim</h4>
+          <p>Sustainability Lead</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--cream); padding:80px 24px; text-align:center;">
+    <div class="container">
+      <h2 style="font-family:var(--font-display); font-size:2.5rem; margin-bottom:16px;">Ready to find your style?</h2>
+      <p style="color:var(--gray); margin-bottom:32px;">Browse our latest collection and discover pieces made just for you.</p>
+      <a href="shop.html" class="btn btn--primary">Shop the Collection</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h3>VOGUE<span>THREAD</span></h3>
+          <p>Modern clothing for the modern you.</p>
+          <div class="footer__social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html?cat=women">Women</a><a href="shop.html?cat=men">Men</a></div>
+        <div class="footer__links"><h4>Help</h4><a href="contact.html">Contact</a><a href="#">Returns</a></div>
+        <div class="footer__links"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 VogueThread. All rights reserved.</p>
+        <div class="footer__payments"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-paypal"></i></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header"><h3>Your Bag (<span id="cartItemCount">0</span>)</h3><button onclick="toggleCart()"><i class="fa fa-times"></i></button></div>
+    <div class="cart-sidebar__items" id="cartItems"></div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <a href="checkout.html" class="btn btn--primary btn--full">Checkout</a>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/firebase-products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

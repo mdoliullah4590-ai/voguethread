@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product — VogueThread</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header__logo"><a href="index.html">VOGUE<span>THREAD</span></a></div>
+    <nav class="header__nav" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header__icons">
+      <a href="#" onclick="toggleSearch()"><i class="fa fa-search"></i></a>
+      <a href="#" onclick="toggleCart()">
+        <i class="fa fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="search-bar" id="searchBar">
+    <input type="text" placeholder="Search for products..." id="searchInput"/>
+    <button onclick="toggleSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- PRODUCT DETAIL -->
+  <main class="product-detail">
+    <div class="container">
+
+      <!-- BREADCRUMB -->
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> /
+        <a href="shop.html">Shop</a> /
+        <span id="productName">Product</span>
+      </div>
+
+      <div class="product-detail__grid">
+
+        <!-- GALLERY -->
+        <div class="product-gallery">
+          <div class="product-gallery__main">
+            <i class="fa fa-shirt" id="productIcon"></i>
+          </div>
+          <div class="product-gallery__thumbs">
+            <div class="active"><i class="fa fa-shirt"></i></div>
+            <div><i class="fa fa-shirt"></i></div>
+            <div><i class="fa fa-shirt"></i></div>
+            <div><i class="fa fa-shirt"></i></div>
+          </div>
+        </div>
+
+        <!-- PRODUCT INFO -->
+        <div class="product-info">
+          <p class="product-info__tag">VogueThread</p>
+          <h1 id="productName">Loading...</h1>
+
+          <div class="product-info__rating">
+            <span class="stars" id="productRatingStars">★★★★★</span>
+            <span id="productRatingCount">(0 reviews)</span>
+          </div>
+
+          <div class="product-info__price">
+            <span id="productPrice">$0.00</span>
+            <span class="old-price" id="productOldPrice"></span>
+          </div>
+
+          <p class="product-info__desc" id="productDesc">Loading product information...</p>
+
+          <!-- COLORS -->
+          <p class="product-info__label">Color</p>
+          <div class="color-options" id="productColors"></div>
+
+          <!-- SIZES -->
+          <p class="product-info__label">Size <a href="#" style="font-size:0.8rem; color:var(--rust); font-weight:400; margin-left:8px;">Size Guide</a></p>
+          <div class="size-options" id="productSizes" style="margin-bottom:28px;"></div>
+
+          <!-- QUANTITY -->
+          <p class="product-info__label">Quantity</p>
+          <div class="product-info__qty">
+            <div class="qty-control">
+              <button onclick="changeProductQty(-1)">−</button>
+              <span id="productQty">1</span>
+              <button onclick="changeProductQty(1)">+</button>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="product-info__actions">
+            <button class="btn btn--primary" id="addToCartBtn" style="flex:1;">Add to Bag</button>
+            <button class="btn--wishlist" title="Add to Wishlist"><i class="fa fa-heart"></i></button>
+          </div>
+
+          <!-- META -->
+          <div class="product-info__meta">
+            <span><i class="fa fa-truck"></i> Free shipping on orders over $75</span>
+            <span><i class="fa fa-rotate-left"></i> Free returns within 30 days</span>
+            <span><i class="fa fa-shield"></i> Secure & encrypted checkout</span>
+            <span><i class="fa fa-leaf"></i> Sustainably made</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RELATED PRODUCTS -->
+      <div style="margin-top:80px;">
+        <div class="section-header">
+          <h2 class="section-title">You Might Also Like</h2>
+          <a href="shop.html" class="view-all">View All <i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="products__grid" id="relatedProducts"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h3>VOGUE<span>THREAD</span></h3>
+          <p>Modern clothing for the modern you.</p>
+          <div class="footer__social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <a href="shop.html">All Products</a>
+          <a href="shop.html?cat=women">Women</a>
+          <a href="shop.html?cat=men">Men</a>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <a href="contact.html">Contact</a>
+          <a href="#">Returns</a>
+        </div>
+        <div class="footer__links">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 VogueThread. All rights reserved.</p>
+        <div class="footer__payments">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag (<span id="cartItemCount">0</span>)</h3>
+      <button onclick="toggleCart()"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__items" id="cartItems"></div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <a href="checkout.html" class="btn btn--primary btn--full">Checkout</a>
+      <button onclick="toggleCart()" class="btn btn--outline btn--full">Continue Shopping</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/firebase-products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initProductPage();
+    });
+  </script>
+</body>
+</html>

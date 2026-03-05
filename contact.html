@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — VogueThread</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__logo"><a href="index.html">VOGUE<span>THREAD</span></a></div>
+    <nav class="header__nav" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="header__icons">
+      <a href="#" onclick="toggleSearch()"><i class="fa fa-search"></i></a>
+      <a href="#" onclick="toggleCart()"><i class="fa fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="search-bar" id="searchBar">
+    <input type="text" placeholder="Search for products..." id="searchInput"/>
+    <button onclick="toggleSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> / <span>Contact</span>
+      </div>
+      <div class="contact-grid">
+
+        <!-- INFO -->
+        <div class="contact-info">
+          <h2>Get In Touch</h2>
+          <p>Have a question about an order, sizing, or anything else? Our team is here to help — usually within 24 hours.</p>
+
+          <div class="contact-detail">
+            <div class="contact-detail__icon"><i class="fa fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <p>hello@voguethread.com</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail__icon"><i class="fa fa-phone"></i></div>
+            <div>
+              <h4>Phone</h4>
+              <p>+1 (555) 123-4567</p>
+              <p style="font-size:0.8rem; color:var(--gray);">Mon–Fri, 9am–6pm EST</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail__icon"><i class="fa fa-location-dot"></i></div>
+            <div>
+              <h4>Headquarters</h4>
+              <p>123 Fashion Ave, New York, NY 10001</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail__icon"><i class="fa fa-clock"></i></div>
+            <div>
+              <h4>Response Time</h4>
+              <p>We typically reply within 24 hours</p>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div style="margin-top:32px;">
+            <p style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:500; margin-bottom:16px;">Follow Us</p>
+            <div style="display:flex; gap:12px;">
+              <a href="#" style="width:40px;height:40px;border:1.5px solid var(--light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='var(--black)';this.style.color='white';" onmouseout="this.style.background='';this.style.color='var(--black)';"><i class="fab fa-instagram"></i></a>
+              <a href="#" style="width:40px;height:40px;border:1.5px solid var(--light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='var(--black)';this.style.color='white';" onmouseout="this.style.background='';this.style.color='var(--black)';"><i class="fab fa-tiktok"></i></a>
+              <a href="#" style="width:40px;height:40px;border:1.5px solid var(--light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='var(--black)';this.style.color='white';" onmouseout="this.style.background='';this.style.color='var(--black)';"><i class="fab fa-pinterest"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="contact-form">
+          <h3>Send Us a Message</h3>
+          <form onsubmit="submitContactForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" placeholder="Alex" required/>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" placeholder="Rivera" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" required/>
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <select>
+                <option>Order Inquiry</option>
+                <option>Return / Exchange</option>
+                <option>Sizing Help</option>
+                <option>Wholesale</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Order Number (optional)</label>
+              <input type="text" placeholder="#VT-000123"/>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h3>VOGUE<span>THREAD</span></h3>
+          <p>Modern clothing for the modern you.</p>
+          <div class="footer__social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div class="footer__links"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html?cat=women">Women</a><a href="shop.html?cat=men">Men</a></div>
+        <div class="footer__links"><h4>Help</h4><a href="contact.html">Contact</a><a href="#">Returns</a></div>
+        <div class="footer__links"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 VogueThread. All rights reserved.</p>
+        <div class="footer__payments"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-paypal"></i></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header"><h3>Your Bag (<span id="cartItemCount">0</span>)</h3><button onclick="toggleCart()"><i class="fa fa-times"></i></button></div>
+    <div class="cart-sidebar__items" id="cartItems"></div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <a href="checkout.html" class="btn btn--primary btn--full">Checkout</a>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/firebase-products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

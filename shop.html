@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — VogueThread</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- HEADER (same as index) -->
+  <header class="header" id="header">
+    <div class="header__logo"><a href="index.html">VOGUE<span>THREAD</span></a></div>
+    <nav class="header__nav" id="navMenu">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header__icons">
+      <a href="#" onclick="toggleSearch()"><i class="fa fa-search"></i></a>
+      <a href="#" onclick="toggleCart()">
+        <i class="fa fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="search-bar" id="searchBar">
+    <input type="text" placeholder="Search for products..." id="searchInput"/>
+    <button onclick="toggleSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- SHOP HERO -->
+  <div class="shop-hero">
+    <h1>Our Collection</h1>
+    <p>Thoughtfully designed pieces for every occasion.</p>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div style="background:var(--white); border-bottom:1px solid var(--light); position:sticky; top:73px; z-index:100;">
+    <div class="container" style="display:flex; gap:0; overflow-x:auto; scrollbar-width:none;">
+      <button class="cat-tab" data-cat="all"         style="padding:16px 28px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--font-body); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; white-space:nowrap; color:var(--gray); transition:all 0.3s;">All</button>
+      <button class="cat-tab" data-cat="women"       style="padding:16px 28px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--font-body); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; white-space:nowrap; color:var(--gray); transition:all 0.3s;">Women</button>
+      <button class="cat-tab" data-cat="men"         style="padding:16px 28px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--font-body); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; white-space:nowrap; color:var(--gray); transition:all 0.3s;">Men</button>
+      <button class="cat-tab" data-cat="accessories" style="padding:16px 28px; background:none; border:none; border-bottom:2px solid transparent; font-family:var(--font-body); font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; white-space:nowrap; color:var(--gray); transition:all 0.3s;">Accessories</button>
+    </div>
+  </div>
+
+  <!-- SHOP CONTENT -->
+  <div class="container">
+    <div class="shop-layout" style="padding: 48px 0 80px;">
+
+      <!-- FILTERS SIDEBAR -->
+      <aside class="filters">
+        <h3>Filters</h3>
+
+        <div class="filter-group">
+          <h4>Price Range</h4>
+          <div class="filter-option"><input type="checkbox" checked/> Under $50</div>
+          <div class="filter-option"><input type="checkbox" checked/> $50 – $100</div>
+          <div class="filter-option"><input type="checkbox" checked/> $100 – $150</div>
+          <div class="filter-option"><input type="checkbox" checked/> Over $150</div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Size</h4>
+          <div class="size-options">
+            <button class="size-btn active">XS</button>
+            <button class="size-btn">S</button>
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+            <button class="size-btn">XL</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Color</h4>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:#1a1a1a;cursor:pointer;border:2px solid #aaa;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#c8b49a;cursor:pointer;border:2px solid transparent;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#c0562a;cursor:pointer;border:2px solid transparent;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#3b4a6b;cursor:pointer;border:2px solid transparent;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#f0ece4;cursor:pointer;border:2px solid #ddd;"></div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Rating</h4>
+          <div class="filter-option"><input type="checkbox" checked/> <span style="color:#f5a623;">★★★★★</span></div>
+          <div class="filter-option"><input type="checkbox" checked/> <span style="color:#f5a623;">★★★★</span>+</div>
+          <div class="filter-option"><input type="checkbox" checked/> <span style="color:#f5a623;">★★★</span>+</div>
+        </div>
+
+        <button class="btn btn--outline" style="width:100%;margin-top:8px;" onclick="renderShopProducts('all')">Clear Filters</button>
+      </aside>
+
+      <!-- PRODUCTS -->
+      <div>
+        <div class="shop-products__header">
+          <p id="productCount">8 Products</p>
+          <select class="sort-select" id="sortSelect">
+            <option value="default">Sort: Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Best Rated</option>
+          </select>
+        </div>
+        <div class="products__grid" id="shopProducts"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <h3>VOGUE<span>THREAD</span></h3>
+          <p>Modern clothing for the modern you.</p>
+          <div class="footer__social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <a href="shop.html">New Arrivals</a>
+          <a href="shop.html?cat=women">Women</a>
+          <a href="shop.html?cat=men">Men</a>
+          <a href="shop.html?cat=accessories">Accessories</a>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <a href="contact.html">Contact Us</a>
+          <a href="#">FAQ</a>
+          <a href="#">Returns</a>
+        </div>
+        <div class="footer__links">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2025 VogueThread. All rights reserved.</p>
+        <div class="footer__payments">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag (<span id="cartItemCount">0</span>)</h3>
+      <button onclick="toggleCart()"><i class="fa fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__items" id="cartItems"></div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <a href="checkout.html" class="btn btn--primary btn--full">Checkout</a>
+      <button onclick="toggleCart()" class="btn btn--outline btn--full">Continue Shopping</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/firebase-products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Style active tab
+    document.querySelectorAll(".cat-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".cat-tab").forEach(t => {
+          t.style.borderBottomColor = "transparent";
+          t.style.color = "var(--gray)";
+        });
+        tab.style.borderBottomColor = "var(--rust)";
+        tab.style.color = "var(--black)";
+      });
+    });
+    // Set first tab active
+    const firstTab = document.querySelector(".cat-tab[data-cat='all']");
+    if (firstTab) { firstTab.style.borderBottomColor = "var(--rust)"; firstTab.style.color = "var(--black)"; }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initShopPage();
+    });
+  </script>
+</body>
+</html>
