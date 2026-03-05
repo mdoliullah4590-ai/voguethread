@@ -936,7 +936,16 @@
       adminToast("Error deleting: " + e.message, "error");
     }
   }
-
+function previewImageURL(url) {
+    const preview = document.getElementById("imagePreview");
+    if (url && url.startsWith("http")) {
+      preview.src = url;
+      preview.style.display = "block";
+      preview.onerror = () => { preview.style.display = "none"; };
+    } else {
+      preview.style.display = "none";
+    }
+}
   // --- TOAST ---
   function adminToast(msg, type = "") {
     const t = document.getElementById("adminToast");
