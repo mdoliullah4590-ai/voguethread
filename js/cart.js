@@ -35,17 +35,21 @@ function updateCartUI() {
       </div>`;
     if (footer) footer.style.display = "none";
   } else {
-    container.innerHTML = cart.map(item => `
+    container.innerHTML = cart.map((item, index) => `
       <div class="cart-item">
-        <div class="cart-item__img"><i class="fa ${item.icon}"></i></div>
+        <div class="cart-item__img">
+          ${item.image
+            ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:4px;"/>`
+            : `<i class="fa fa-shirt"></i>`}
+        </div>
         <div class="cart-item__info">
           <h4>${item.name}</h4>
           <p>${item.size ? "Size: " + item.size : ""} ${item.color ? "· " + item.color : ""}</p>
           <div class="cart-item__controls">
-            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
             <span class="qty-display">${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-            <button class="cart-item__remove" onclick="removeFromCart(${item.id})">Remove</button>
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            <button class="cart-item__remove" onclick="removeFromCart(${index})">Remove</button>
           </div>
           <p><strong>${formatPrice(item.price * item.qty)}</strong></p>
         </div>
@@ -64,7 +68,7 @@ function addToCart(productId, size, color) {
   if (!product) return;
 
   const existingIndex = cart.findIndex(
-    item => item.id === productId && item.size === size && item.color === color
+    item => String(item.id) === String(productId) && item.size === size
   );
 
   if (existingIndex > -1) {
@@ -74,8 +78,8 @@ function addToCart(productId, size, color) {
       id:    product.id,
       name:  product.name,
       price: product.price,
-      icon:  product.icon,
-      size:  size || product.sizes[0],
+      image: product.imageURL || null,
+      size:  size || (product.sizes && product.sizes[0]) || "M",
       color: color || null,
       qty:   1
     });
@@ -87,22 +91,19 @@ function addToCart(productId, size, color) {
   openCart();
 }
 
-function removeFromCart(productId) {
-  cart = cart.filter(item => item.id !== productId);
+function removeFromCart(index) {
+  cart.splice(index, 1);
   saveCart();
   updateCartUI();
   showToast("Item removed from bag.");
 }
 
-function changeQty(productId, delta) {
-  const index = cart.findIndex(item => item.id === productId);
-  if (index === -1) return;
-
+function changeQty(index, delta) {
+  if (index < 0 || index >= cart.length) return;
   cart[index].qty += delta;
   if (cart[index].qty <= 0) {
     cart.splice(index, 1);
   }
-
   saveCart();
   updateCartUI();
 }
@@ -119,5 +120,4 @@ function openCart() {
   const overlay = document.getElementById("cartOverlay");
   if (sidebar) sidebar.classList.add("open");
   if (overlay) overlay.classList.add("open");
-      }
-    
+}
