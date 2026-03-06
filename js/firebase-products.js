@@ -159,6 +159,9 @@ function populateProductDetail(product) {
     iconEl.replaceWith(img);
   }
 
+  // Update WhatsApp button with product details
+  if (typeof updateWhatsAppLink === "function") updateWhatsAppLink(product);
+
   const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ""; };
   setTxt("productName",        product.name);
   setTxt("productPrice",       formatPrice(product.price));
