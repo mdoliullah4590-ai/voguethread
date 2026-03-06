@@ -192,7 +192,11 @@
   <script src="js/main.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      initProductPage();
+      if (typeof initProductPageFirebase === "function") {
+        initProductPageFirebase();
+      } else {
+        initProductPage();
+      }
     });
   </script>
 </body>
