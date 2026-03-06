@@ -150,11 +150,13 @@ function populateProductDetail(product) {
   document.title = `${product.name} — VogueThread`;
 
   // Image
-  const mainImg = document.getElementById("productMainImg");
-  if (mainImg) {
-    mainImg.innerHTML = product.imageURL
-      ? `<img src="${product.imageURL}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"/>`
-      : `<i class="fa fa-shirt" style="font-size:6rem;color:var(--light);"></i>`;
+  const iconEl = document.getElementById("productIcon");
+  if (iconEl && product.imageURL) {
+    const img = document.createElement("img");
+    img.src = product.imageURL;
+    img.alt = product.name;
+    img.style = "width:100%;height:100%;object-fit:cover;border-radius:8px;";
+    iconEl.replaceWith(img);
   }
 
   const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || ""; };
